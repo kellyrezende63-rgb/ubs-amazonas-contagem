@@ -3,24 +3,820 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UBS Amazonas – Contagem/MG | Diagnóstico e Planejamento em APS</title>
+  <title>Diagnóstico Situacional e Planejamento Estratégico | UBS Amazonas – Contagem/MG</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-page: #f4f6f5;
-      --bg-surface: #ffffff;
-      --bg-tint: #eef3f0;
-      --primary: #163a33;
-      --primary-mid: #23574d;
-      --accent: #c48327;
+      --primary: #163a37;
+      --primary-dark: #0e2624;
+      --accent: #c4842d;
       --accent-soft: #fdf6ea;
-      --teal: #1f7a72;
-      --terra: #b54e38;
-      --text-main: #1b2421;
-      --text-sub: #52605b;
-      --border: #dfe6e2;
-      --shadow-sm: 0 2px 8px rgba(22, 58, 51, 0.05);
-      --shadow-md: 0 10px 28px rgba(22, 58, 51, 0.08);
-      --radius: 12px;
+      --teal: #1f6f68;
+      --teal-soft: #eaf5f3;
+      --terra: #a84938;
+      --terra-soft: #fdf0ed;
+      --bg: #f4f6f5;
+      --surface: #ffffff;
+      --text: #1c2423;
+      --muted: #5c6967;
+      --border: #dfe5e3;
+      --shadow: 0 10px 30px rgba(14, 38, 36, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    /* Barra de navegação */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(14, 38, 36, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.9rem 6%;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.4px;
+    }
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .nav-menu {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .nav-menu a {
+      color: #d6e0de;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-menu a:hover { color: #f2be6b; }
+
+    /* Hero */
+    .hero {
+      background: radial-gradient(circle at top right, #235752 0%, var(--primary) 52%, var(--primary-dark) 100%);
+      color: #fff;
+      padding: 4.5rem 6% 4rem;
+      border-bottom: 4px solid var(--accent);
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.45fr 0.95fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+    }
+    .eyebrow {
+      display: inline-block;
+      background: rgba(196, 132, 45, 0.2);
+      border: 1px solid rgba(242, 190, 107, 0.45);
+      color: #f6c97e;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.1rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.85rem, 3.6vw, 2.85rem);
+      font-weight: 800;
+      line-height: 1.16;
+      margin-bottom: 0.9rem;
+    }
+    .hero h2 {
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+      font-weight: 600;
+      color: #f2be6b;
+      margin-bottom: 1.2rem;
+    }
+    .hero p {
+      color: #dce6e4;
+      font-size: 0.98rem;
+      margin-bottom: 1.6rem;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.78rem 1.35rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: transform 0.15s, opacity 0.2s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-outline {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      padding: 1.6rem;
+    }
+    .hero-card h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #f2be6b;
+      margin-bottom: 1rem;
+    }
+    .info-row {
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row span {
+      display: block;
+      font-size: 0.74rem;
+      color: #9fb2ae;
+      text-transform: uppercase;
+      margin-bottom: 0.15rem;
+    }
+
+    /* Seções */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3.8rem 6%;
+    }
+    .section-head { margin-bottom: 2rem; }
+    .section-tag {
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      color: var(--teal);
+      margin-bottom: 0.35rem;
+    }
+    .section-title {
+      font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.45rem;
+    }
+    .section-desc {
+      color: var(--muted);
+      max-width: 820px;
+      font-size: 0.98rem;
+    }
+
+    /* Cards & Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.4rem;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.4rem;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 1.3rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .card-top-teal { border-top: 4px solid var(--teal); }
+    .card-top-gold { border-top: 4px solid var(--accent); }
+    .card-top-terra { border-top: 4px solid var(--terra); }
+    .card-top-dark { border-top: 4px solid var(--primary); }
+
+    .card h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.55rem;
+    }
+    .card p { font-size: 0.92rem; color: var(--text); }
+    .card ul {
+      padding-left: 1.15rem;
+      font-size: 0.91rem;
+      color: var(--text);
+    }
+    .card li { margin-bottom: 0.45rem; }
+
+    /* KPIs Municipais */
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.35rem;
+      box-shadow: var(--shadow);
+    }
+    .kpi-value {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+    .kpi-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .kpi-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .progress {
+      height: 8px;
+      background: #e6ecea;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 0.65rem 0 0.45rem;
+    }
+    .progress > div {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .notice {
+      margin-top: 1.5rem;
+      background: var(--accent-soft);
+      border: 1px solid #ecd4a7;
+      border-left: 5px solid var(--accent);
+      border-radius: 10px;
+      padding: 1.15rem 1.4rem;
+      font-size: 0.92rem;
+    }
+
+    /* SWOT */
+    .swot-box {
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+    }
+    .swot-f { background: var(--teal-soft); border-left: 5px solid var(--teal); }
+    .swot-w { background: var(--terra-soft); border-left: 5px solid var(--terra); }
+    .swot-o { background: #eef4fa; border-left: 5px solid #2b6cb0; }
+    .swot-t { background: var(--accent-soft); border-left: 5px solid var(--accent); }
+    .swot-box h3 { font-size: 1rem; font-weight: 800; margin-bottom: 0.7rem; color: var(--primary); }
+    .swot-box ul { padding-left: 1.15rem; font-size: 0.9rem; }
+    .swot-box li { margin-bottom: 0.4rem; }
+
+    /* SMART Banner */
+    .smart-box {
+      background: linear-gradient(120deg, var(--primary) 0%, #1f4f4a 100%);
+      color: #fff;
+      border-radius: 14px;
+      padding: 1.8rem;
+      border-left: 6px solid var(--accent);
+      margin-bottom: 1.6rem;
+      box-shadow: var(--shadow);
+    }
+    .smart-label {
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      color: #f2be6b;
+      margin-bottom: 0.45rem;
+    }
+    .smart-goal {
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 1.1rem;
+    }
+    .smart-tags {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      font-size: 0.84rem;
+    }
+    .smart-tags div {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.65rem 0.8rem;
+      border-radius: 8px;
+    }
+    .smart-tags strong { color: #f6c97e; display: block; }
+
+    /* Tabela */
+    .table-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .table-responsive { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th {
+      background: var(--primary);
+      color: #fff;
+      text-align: left;
+      padding: 0.9rem 1rem;
+      font-weight: 700;
+    }
+    td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8faf9; }
+    .badge-time {
+      display: inline-block;
+      background: var(--teal-soft);
+      color: var(--teal);
+      border: 1px solid #b9ddd8;
+      font-weight: 700;
+      font-size: 0.76rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: #dce6e4;
+      padding: 3.5rem 6% 2.5rem;
+      border-top: 4px solid var(--accent);
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-inner h2 { color: #f2be6b; font-size: 1.5rem; margin-bottom: 0.8rem; }
+    .footer-copy { font-size: 0.96rem; margin-bottom: 1.8rem; max-width: 960px; }
+    .ref-list {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.82rem;
+      color: #b7c7c4;
+      margin-bottom: 1.5rem;
+    }
+    .ref-list h4 { color: #fff; font-size: 0.88rem; margin-bottom: 0.6rem; }
+    .ref-list p { margin-bottom: 0.45rem; }
+    .bottom-bar {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #8ea39f;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="brand"><span class="brand-dot"></span> UBS AMAZONAS • CONTAGEM/MG</div>
+      <div class="nav-menu">
+        <a href="#diagnostico">Diagnóstico</a>
+        <a href="#funcoes">Funções & SUS</a>
+        <a href="#vacinacao">Vacinação</a>
+        <a href="#swot">SWOT & SMART</a>
+        <a href="#plano">Plano 90 Dias</a>
+        <a href="#recursos">Recursos & Avaliação</a>
+        <a href="#conclusao">Conclusão</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Nova Faculdade • Técnico em Gerência em Saúde</div>
+        <h1>Diagnóstico Situacional e Planejamento Estratégico na Atenção Primária à Saúde</h1>
+        <h2>Estudo de Caso da UBS Amazonas – Contagem/MG</h2>
+        <p>
+          Análise gerencial documental baseada nos instrumentos públicos da Prefeitura de Contagem (Plano Municipal de Saúde 2026–2029, Relatório Anual de Gestão 2024 e painéis da Secretaria Municipal de Saúde), propondo diagnóstico local, aplicação de funções administrativas, comunicação em vacinação, análise SWOT, objetivo SMART e plano de ação monitorável.
+        </p>
+        <div class="hero-actions">
+          <a href="#plano" class="btn btn-primary">Ver Plano de Ação (90 Dias)</a>
+          <a href="#diagnostico" class="btn btn-outline">Explorar Diagnóstico</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <h3>Identificação Acadêmica</h3>
+        <div class="info-row">
+          <span>Integrantes</span>
+          Daniele Silva, Deivid Lima, Flavia Fonseca, Kelly Martins e Jamile Santos
+        </div>
+        <div class="info-row">
+          <span>Orientador</span>
+          Prof. Gilmar de Oliveira
+        </div>
+        <div class="info-row">
+          <span>Instituição e Curso</span>
+          Nova Faculdade — Técnico em Gerência em Saúde
+        </div>
+        <div class="info-row">
+          <span>Local e Ano</span>
+          Bairro Amazonas, Contagem/MG • 2026
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- Contexto e 4 Dimensões -->
+  <section id="diagnostico" class="section">
+    <div class="section-head">
+      <div class="section-tag">01 • Contexto Municipal e Diagnóstico Situacional</div>
+      <h2 class="section-title">Referenciais de Contagem e Dimensões Prioritárias</h2>
+      <p class="section-desc">
+        Os dados municipais orientam o contexto da Atenção Primária à Saúde (APS) e definem hipóteses de investigação local — não representam resultados medidos diretamente na UBS Amazonas.
+      </p>
+    </div>
+
+    <div class="grid-4">
+      <div class="kpi-card">
+        <div class="kpi-title">Cobertura de Equipes APS</div>
+        <div class="kpi-value">94% → 99%</div>
+        <div class="progress"><div style="width: 94%; background: var(--primary);"></div></div>
+        <div class="kpi-meta">Plano Municipal de Saúde 2026–2029 (linha de base 2025 a meta 2029).</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">Abastecimento de Insumos</div>
+        <div class="kpi-value">70% → 85%</div>
+        <div class="progress"><div style="width: 70%; background: var(--teal);"></div></div>
+        <div class="kpi-meta">Unidades com abastecimento regular de insumos essenciais (2025–2029).</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">Visitas Técnicas Vacinação</div>
+        <div class="kpi-value">60 / 100</div>
+        <div class="progress"><div style="width: 60%; background: var(--accent);"></div></div>
+        <div class="kpi-meta">Relatório Anual de Gestão 2024 (visitas às salas de vacinação).</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">Vacinação (&lt; 2 anos) e REMUME</div>
+        <div class="kpi-value">25% / 87,96%</div>
+        <div class="progress"><div style="width: 25%; background: var(--terra);"></div></div>
+        <div class="kpi-meta">RAG 2024: cobertura vacinal (meta 75%) e itens REMUME com preço vigente (meta 100%).</div>
+      </div>
+    </div>
+
+    <div class="notice">
+      <strong>Metodologia e Delimitação:</strong> Pesquisa documental, descritiva e propositiva, sem entrevistas, observação direta ou consulta a prontuários. Para validar localmente (em pelo menos 4 semanas, com dados agregados, via e-SUS APS, prontuário Vivver e painéis da SMS, respeitando sigilo e LGPD), devem ser levantados tempos de espera, faltas/encaixes, falta de insumos, ordens de manutenção, doses aplicadas e manifestações.
+    </div>
+
+    <div class="grid-2" style="margin-top: 1.8rem;">
+      <div class="card card-top-dark">
+        <h3>1. Acesso, acolhimento e tempo de espera</h3>
+        <ul>
+          <li><strong>Causas a verificar:</strong> distribuição da demanda ao longo do dia, agenda, classificação de necessidades, comunicação sobre fluxos e dimensionamento da equipe.</li>
+          <li><strong>Efeitos possíveis:</strong> espera, dificuldade de acesso, retornos desnecessários e insatisfação.</li>
+        </ul>
+      </div>
+
+      <div class="card card-top-teal">
+        <h3>2. Disponibilidade de medicamentos e materiais</h3>
+        <ul>
+          <li><strong>Causas a verificar:</strong> previsão de consumo, registro de entradas e saídas, periodicidade de reposição, comunicação de faltas, armazenamento e validade.</li>
+          <li><strong>Efeitos possíveis:</strong> interrupção ou atraso de procedimentos e busca de atendimento em outro local.</li>
+        </ul>
+      </div>
+
+      <div class="card card-top-gold">
+        <h3>3. Conservação e disponibilidade de equipamentos</h3>
+        <ul>
+          <li><strong>Causas a verificar:</strong> rotina de inspeção, manutenção preventiva, registro de defeitos e fluxo de solicitação de reparo.</li>
+          <li><strong>Efeitos possíveis:</strong> atraso, remanejamento de atividades e redução da capacidade de atendimento.</li>
+        </ul>
+      </div>
+
+      <div class="card card-top-terra">
+        <h3>4. Vacinação e comunicação com a comunidade</h3>
+        <ul>
+          <li><strong>Causas a verificar:</strong> busca ativa, divulgação de calendário e horários, identificação de faltosos e barreiras de horário, informação ou acesso.</li>
+          <li><strong>Efeitos possíveis:</strong> oportunidades perdidas de vacinação e menor adesão às ações preventivas.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Funções Administrativas, SUS e LIMPE -->
+  <section id="funcoes" class="section" style="padding-top: 1rem;">
+    <div class="section-head">
+      <div class="section-tag">02 • Gestão, SUS e Administração Pública</div>
+      <h2 class="section-title">Funções Administrativas e Princípios Constitucionais</h2>
+      <p class="section-desc">
+        Atuação integrada para organizar processos, orientar equipes e garantir direitos assegurados pela Constituição Federal e pelo SUS.
+      </p>
+    </div>
+
+    <div class="grid-4">
+      <div class="card card-top-dark">
+        <h3>Planejamento</h3>
+        <p>Partir do diagnóstico, território, população adscrita, calendário vacinal, capacidade das equipes e Plano Municipal; definir metas mensuráveis, recursos e plano de 90 dias com avaliações mensais.</p>
+      </div>
+      <div class="card card-top-teal">
+        <h3>Organização</h3>
+        <p>Estruturar acolhimento, orientação inicial, agendas, encaminhamentos, abastecimento e manutenção, com atribuições formalizadas e compartilhadas.</p>
+      </div>
+      <div class="card card-top-gold">
+        <h3>Direção</h3>
+        <p>Liderança, reuniões periódicas, estímulo à participação, educação permanente e comunicação interna padronizada por canais institucionais.</p>
+      </div>
+      <div class="card card-top-terra">
+        <h3>Controle</h3>
+        <p>Painel mensal de indicadores (acesso, abastecimento, manutenção e vacinação) com caráter educativo para corrigir desvios e melhorar processos.</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top: 1.5rem;">
+      <div class="card card-top-teal">
+        <h3>Princípios Doutrinários do SUS</h3>
+        <ul>
+          <li><strong>Universalidade:</strong> acesso de todas as pessoas sem discriminação, superando barreiras geográficas, econômicas e sociais.</li>
+          <li><strong>Integralidade:</strong> assistência que articula promoção, prevenção, tratamento e recuperação, com continuidade do cuidado na rede.</li>
+          <li><strong>Equidade:</strong> redução de desigualdades injustas, priorizando vulneráveis (crianças com vacina em atraso, idosos, pessoas com deficiência e famílias vulneráveis).</li>
+        </ul>
+      </div>
+
+      <div class="card card-top-dark">
+        <h3>Princípios Constitucionais (Art. 37 – LIMPE)</h3>
+        <ul>
+          <li><strong>Legalidade:</strong> cumprimento de normas sanitárias, protocolos e fluxos oficiais.</li>
+          <li><strong>Impessoalidade:</strong> atendimento sem favorecimentos ou discriminações; campanhas com identidade institucional, sem promoção pessoal.</li>
+          <li><strong>Moralidade, Publicidade e Eficiência:</strong> conduta ética, transparência de informações coletivas, proteção de dados pessoais e otimização de recursos sem desperdícios.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marketing e Comunicação em Vacinação -->
+  <section id="vacinacao" class="section" style="padding-top: 1rem;">
+    <div class="section-head">
+      <div class="section-tag">03 • Marketing e Comunicação em Saúde</div>
+      <h2 class="section-title">Estratégia Territorial para Vacinação</h2>
+      <p class="section-desc">
+        Mobilização social e busca ativa articuladas com equipes de Saúde da Família e Agentes Comunitários de Saúde (ACS).
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card card-top-gold">
+        <h3>Público e Canais</h3>
+        <ul>
+          <li><strong>Públicos:</strong> responsáveis por crianças e adolescentes, idosos, gestantes, condições clínicas indicadas e moradores com doses pendentes (registros autorizados).</li>
+          <li><strong>Canais:</strong> consultas/acolhimento, visitas dos ACS, cartazes na comunidade, canais oficiais da Prefeitura e escolas/equipamentos sociais articulados.</li>
+        </ul>
+      </div>
+
+      <div class="card card-top-terra">
+        <h3>Barreiras e Enfrentamento</h3>
+        <ul>
+          <li><strong>Barreiras:</strong> incompatibilidade de horário de trabalho, transporte, falta de informação, receio de eventos adversos, esquecimento e perda da caderneta.</li>
+          <li><strong>Ações:</strong> orientação profissional, lembretes, busca ativa e divulgação atualizada de horários e disponibilidade.</li>
+        </ul>
+      </div>
+
+      <div class="card card-top-teal">
+        <h3>Avaliação da Campanha</h3>
+        <ul>
+          <li>Acompanhar doses aplicadas, pessoas contatadas, faltosos localizados, proporção de esquemas atualizados e motivos de ausência.</li>
+          <li>Comparar períodos e públicos equivalentes para avaliar a efetividade com rigor.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SWOT e Objetivo SMART -->
+  <section id="swot" class="section" style="padding-top: 1rem;">
+    <div class="section-head">
+      <div class="section-tag">04 • Análise SWOT/FOFA e Objetivo SMART</div>
+      <h2 class="section-title">Matriz Preliminar e Meta de 90 Dias</h2>
+      <p class="section-desc">
+        Elementos preliminares construídos como hipótese de planejamento para validação com a coordenação e equipe da UBS Amazonas.
+      </p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom: 1.8rem;">
+      <div class="swot-box swot-f">
+        <h3>FORÇAS (Hipóteses – Fatores Internos)</h3>
+        <ul>
+          <li>Inserção territorial e vínculo potencial com a comunidade.</li>
+          <li>Trabalho multiprofissional característico da APS.</li>
+          <li>Existência de sistemas e painéis municipais de informação.</li>
+          <li>Articulação com agentes comunitários e rede local.</li>
+        </ul>
+      </div>
+
+      <div class="swot-box swot-w">
+        <h3>FRAQUEZAS (A verificar – Fatores Internos)</h3>
+        <ul>
+          <li>Ausência ou baixa padronização de indicadores locais.</li>
+          <li>Possíveis falhas na comunicação dos fluxos e horários.</li>
+          <li>Registros de estoque ou manutenção a aperfeiçoar.</li>
+          <li>Busca ativa de faltosos que pode necessitar reforço.</li>
+        </ul>
+      </div>
+
+      <div class="swot-box swot-o">
+        <h3>OPORTUNIDADES (Fatores Externos)</h3>
+        <ul>
+          <li>Plano Municipal de Saúde 2026–2029 com metas para APS, insumos e qualificação.</li>
+          <li>Painéis municipais para apoiar o monitoramento.</li>
+          <li>Parcerias com escolas e equipamentos sociais.</li>
+          <li>Educação permanente e vacinação extramuros.</li>
+        </ul>
+      </div>
+
+      <div class="swot-box swot-t">
+        <h3>AMEAÇAS (Fatores Externos)</h3>
+        <ul>
+          <li>Aumento ou concentração sazonal da demanda.</li>
+          <li>Desinformação e hesitação vacinal.</li>
+          <li>Atrasos externos no fornecimento de insumos.</li>
+          <li>Barreiras sociais, econômicas e de mobilidade no território.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="smart-box">
+      <div class="smart-label">Objetivo SMART Proposto</div>
+      <div class="smart-goal">
+        "Em até 90 dias após o início do plano, implantar na UBS Amazonas um ciclo de monitoramento mensal de quatro dimensões prioritárias — acesso, disponibilidade de insumos, manutenção de equipamentos e vacinação —, garantindo que pelo menos 90% dos registros previstos no instrumento de acompanhamento estejam preenchidos e analisados pela equipe em cada mês."
+      </div>
+      <div class="smart-tags">
+        <div><strong>Específico</strong>Monitoramento de 4 dimensões da gestão.</div>
+        <div><strong>Mensurável</strong>% de registros preenchidos e analisados (meta de 90% a pactuar).</div>
+        <div><strong>Atingível</strong>Planilha/painel simples com dados da unidade.</div>
+        <div><strong>Relevante &amp; Temporal</strong>Apoia acesso, cuidado e segurança em 90 dias (avaliação mensal).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plano de Ação -->
+  <section id="plano" class="section" style="padding-top: 1rem;">
+    <div class="section-head">
+      <div class="section-tag">05 • Plano de Ação</div>
+      <h2 class="section-title">Cronograma Inicial de 90 Dias</h2>
+      <p class="section-desc">
+        Ações organizadas por prazo, responsáveis sugeridos, indicadores e evidências/registros.
+      </p>
+    </div>
+
+    <div class="table-card">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Prazo</th>
+              <th>Ação</th>
+              <th>Responsável Sugerido</th>
+              <th>Indicador de Acompanhamento</th>
+              <th>Evidência / Registro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge-time">Dias 1–15</span></td>
+              <td>Levantar linha de base de espera, demanda, faltas e fluxo de acolhimento.</td>
+              <td>Coordenação e equipe de acolhimento</td>
+              <td>Linha de base concluída; tempo médio por tipo de atendimento.</td>
+              <td>Planilha agregada e ata de validação.</td>
+            </tr>
+            <tr>
+              <td><span class="badge-time">Dias 1–30</span></td>
+              <td>Implantar rotina de conferência de estoque mínimo, validade e solicitação de reposição.</td>
+              <td>Responsável pelo estoque/farmácia e coordenação</td>
+              <td>Percentual de itens críticos conferidos; ocorrências de falta registradas.</td>
+              <td>Ficha de estoque e registro de solicitação.</td>
+            </tr>
+            <tr>
+              <td><span class="badge-time">Dias 1–30</span></td>
+              <td>Criar registro de inspeção e manutenção preventiva dos equipamentos prioritários.</td>
+              <td>Responsável designado pela unidade e setor municipal de manutenção</td>
+              <td>Percentual de equipamentos prioritários inspecionados; chamados no prazo.</td>
+              <td>Checklist e ordens de serviço.</td>
+            </tr>
+            <tr>
+              <td><span class="badge-time">Dias 15–75</span></td>
+              <td>Executar campanha de vacinação com busca ativa e comunicação territorial.</td>
+              <td>Enfermagem, sala de vacina e agentes comunitários</td>
+              <td>Pessoas com atraso identificadas e contatadas; doses por público-alvo.</td>
+              <td>Relatório agregado de vacinação e registro da campanha.</td>
+            </tr>
+            <tr>
+              <td><span class="badge-time">Dias 30–90</span></td>
+              <td>Avaliar satisfação e barreiras de acesso por escuta breve e canal de manifestação.</td>
+              <td>Coordenação e equipe de acolhimento</td>
+              <td>Número de manifestações categorizadas e providências registradas.</td>
+              <td>Relatório sem dados identificáveis.</td>
+            </tr>
+            <tr>
+              <td><span class="badge-time">Mensal, até dia 90</span></td>
+              <td>Realizar reunião mensal de análise dos indicadores e pactuar correções.</td>
+              <td>Coordenação e representantes da equipe</td>
+              <td>Reuniões realizadas; % de registros preenchidos e analisados (meta: 90%).</td>
+              <td>Ata, painel e plano de providências.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gestão de Recursos e Monitoramento -->
+  <section id="recursos" class="section" style="padding-top: 1rem;">
+    <div class="section-head">
+      <div class="section-tag">06 • Recursos, Informações e Avaliação</div>
+      <h2 class="section-title">Gestão Operacional e Monitoramento Mensal</h2>
+      <p class="section-desc">
+        Controle contínuo para evitar faltas, paradas por falhas de equipamentos e exposição indevida de dados.
+      </p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card card-top-teal">
+        <h3>Gestão de Materiais, Equipamentos e Informações</h3>
+        <ul>
+          <li><strong>Materiais:</strong> considerar consumo médio, estoque mínimo e máximo, prazo de reposição, validade, armazenamento adequado e registro de perdas, evitando compras emergenciais ou desperdícios.</li>
+          <li><strong>Equipamentos:</strong> manter inventário atualizado, responsável designado, inspeções programadas e registro de defeitos/manutenções, comunicando indisponibilidades à coordenação.</li>
+          <li><strong>Informações:</strong> registro nos sistemas institucionais com acesso restrito por atribuição e proteção de dados.</li>
+        </ul>
+      </div>
+
+      <div class="card card-top-gold">
+        <h3>6 Indicadores e Correção de Desvios</h3>
+        <ul>
+          <li>(1) Tempo médio de espera por tipo de atendimento; (2) % de itens críticos sem ruptura de estoque; (3) % de equipamentos prioritários em condição de uso; (4) pessoas com vacinação em atraso identificadas e contatadas; (5) doses aplicadas por público-alvo; (6) % de registros preenchidos e discutidos.</li>
+          <li>Avaliar qualidade, experiência dos usuários, equidade e efeitos na equipe; quando abaixo do esperado, registrar causa provável, medida corretiva, responsável e novo prazo.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Considerações Finais e Referências -->
+  <footer id="conclusao">
+    <div class="footer-inner">
+      <h2>Considerações Finais</h2>
+      <p class="footer-copy">
+        A análise da UBS Amazonas, articulada aos instrumentos públicos de planejamento e gestão de Contagem, mostra que informações confiáveis contextualizam prioridades (cobertura da APS, insumos, vacinação, qualificação das equipes e monitoramento), mas não substituem o diagnóstico local construído com coordenação, trabalhadores e usuários a partir de dados agregados. As funções administrativas, a comunicação ética, a matriz SWOT, o objetivo SMART e o plano de ação oferecem um roteiro prático unindo planejamento, participação, transparência, uso responsável de recursos e princípios do SUS para um cuidado acessível, integral, equânime e humanizado.
+      </p>
+
+      <div class="ref-list">
+        <h4>Fontes e Referências Principais</h4>
+        <p>BRASIL. Constituição da República Federativa do Brasil de 1988. Art. 37 e arts. 196 a 200; Leis nº 8.080/1990 e nº 8.142/1990.</p>
+        <p>CONTAGEM (MG). Prefeitura Municipal. Plano Municipal de Saúde 2026–2029; Relatório Anual de Gestão da Saúde – 2024; Painéis de Monitoramento da SMS (portal.contagem.mg.gov.br/secretaria-de-saude/) e Imunização (portal.contagem.mg.gov.br/imunizacao).</p>
+        <p>COSTA NETO; CANUTO (2010); PAIM (2019); PEDREIRA (2025); PEREIRA; ALCÂNTARA; FERREIRA (2024).</p>
+      </div>
+
+      <div class="bottom-bar">
+        Nova Faculdade • Técnico em Gerência em Saúde • Daniele Silva, Deivid Lima, Flavia Fonseca, Kelly Martins e Jamile Santos • Orientador: Prof. Gilmar de Oliveira • Contagem/MG, 2026
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
